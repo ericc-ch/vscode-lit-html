@@ -13,8 +13,9 @@ This extension provides syntax highlighting and language support for HTML within
 - Formatting support for HTML tags.
 - Auto-closing HTML tags.
 - Folding for HTML blocks.
-- CSS completions within style blocks.
-- Supports literal HTML strings containing placeholders.
+- Syntax highlighting for inline CSS blocks tagged with `css`.
+- IntelliSense for CSS properties and values within `css` tagged templates.
+- Supports literal HTML and CSS strings containing placeholders.
 
 ## Usage
 
@@ -42,6 +43,29 @@ You can enable IntelliSense for other tag names by setting `"lit-html.tags"`:
 "lit-html.tags": [
     "html",
     "template"
+]
+```
+
+### CSS Tags
+
+Similarly, this extension provides CSS IntelliSense for template literals tagged with `css` by default:
+
+```js
+import { css } from "lit-element"; // Or your preferred CSS tagging library
+
+const styles = css`
+  .my-element {
+    color: blue;
+  }
+`;
+```
+
+You can enable CSS IntelliSense for other tag names by setting `"lit-html.cssTags"`:
+
+```json
+"lit-html.cssTags": [
+    "css",
+    "style"
 ]
 ```
 
