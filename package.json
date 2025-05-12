@@ -28,7 +28,7 @@
     "template"
   ],
   "engines": {
-    "vscode": "^1.100.0"
+    "vscode": "^1.80.0"
   },
   "activationEvents": [
     "onLanguage:javascript",
@@ -155,11 +155,10 @@
   },
   "devDependencies": {
     "@types/node": "^12.20.55",
-    "@types/vscode": "^1.100.0",
+    "@types/vscode": "^1.80.0",
     "glob": "^7.2.3",
     "mocha": "^6.2.3",
     "typescript": "^5.8.3",
     "vscode-test": "^1.6.1"
-  },
-  "packageManager": "pnpm@10.10.0"
+  }
 }
