@@ -125,6 +125,21 @@
         "embeddedLanguages": {
           "meta.embedded.block.svg": "xml"
         }
+      },
+      {
+        "injectTo": [
+          "source.js",
+          "source.js.jsx",
+          "source.jsx",
+          "source.ts",
+          "source.tsx",
+          "text.html.basic"
+        ],
+        "scopeName": "inline.lit-html-css",
+        "path": "./syntaxes/lit-html-css.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.css": "css"
+        }
       }
     ],
     "typescriptServerPlugins": [
