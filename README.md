@@ -1,3 +1,6 @@
+> [!NOTE]
+> This is a fork of the original [vscode-lit-html](https://github.com/mjbvz/vscode-lit-html) extension, created for the sole purpose of re-publishing to the [Open VSX Registry](https://open-vsx.org/). The original project is MIT licensed.
+
 This extension provides syntax highlighting and language support for HTML within JavaScript and TypeScript tagged template strings, commonly used in frameworks like [lit-html](https://github.com/PolymerLabs/lit-html).
 
 ![](https://github.com/mjbvz/vscode-lit-html/raw/master/docs/example.gif)
