@@ -1,42 +1,39 @@
-[![](https://vsmarketplacebadge.apphb.com/version/bierner.lit-html.svg)](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html) [![Build Status](https://travis-ci.org/mjbvz/vscode-lit-html.svg?branch=master)](https://travis-ci.org/mjbvz/vscode-lit-html)
-
-Adds syntax highlighting and language support for html inside of JavaScript and TypeScript tagged template strings, such as used in [lit-html](https://github.com/PolymerLabs/lit-html) and other frameworks.
+This extension provides syntax highlighting and language support for HTML within JavaScript and TypeScript tagged template strings, commonly used in frameworks like [lit-html](https://github.com/PolymerLabs/lit-html).
 
 ![](https://github.com/mjbvz/vscode-lit-html/raw/master/docs/example.gif)
 
-
 ## Features
 
-- Syntax highlighting of inline html blocks.
-- IntelliSense for html tags and attributes.
-- Quick info hovers on tags.
-- Formatting support.
-- Auto closing tags.
-- Folding html.
-- CSS completions in style blocks.
-- Works with literal html strings that contain placeholders.
+- Syntax highlighting for inline HTML blocks.
+- IntelliSense for HTML tags and attributes.
+- Quick info hovers on HTML tags.
+- Formatting support for HTML tags.
+- Auto-closing HTML tags.
+- Folding for HTML blocks.
+- CSS completions within style blocks.
+- Supports literal HTML strings containing placeholders.
 
 ## Usage
-The lit-html extension adds highlighting and IntelliSense for lit-html template strings in JavaScript and TypeScript. It works out of the box when you use VS Code's built-in version of TypeScript.
 
-If you are using VS Code 1.30 or older and are [using a workspace version of typescript](https://code.visualstudio.com/Docs/languages/typescript#_using-newer-typescript-versions), you must currently configure the TS Server plugin manually by following [these instructions](https://github.com/Microsoft/typescript-lit-html-plugin#usage)
+This extension enhances JavaScript and TypeScript with highlighting and IntelliSense for lit-html template strings. It functions automatically with VS Code's built-in TypeScript version.
+
+For VS Code 1.30 or older, if you're [using a workspace version of TypeScript](https://code.visualstudio.com/Docs/languages/typescript#_using-newer-typescript-versions), manual configuration of the TS Server plugin is required. Follow [these instructions](https://github.com/Microsoft/typescript-lit-html-plugin#usage).
 
 ## Configuration
 
-You can either configure this plugin using a `tsconfig` or `jsconfig` as described [here](https://github.com/Microsoft/typescript-lit-html-plugin#configuration), or configure the plugin using VS Code. This requires VS Code 1.30+ and TS 3.2+. Note the VS Code based configuration override the `tsconfig` or `jsconfig` configuration.
+Configure this plugin via a `tsconfig` or `jsconfig` file as detailed [here](https://github.com/Microsoft/typescript-lit-html-plugin#configuration), or directly within VS Code (requires VS Code 1.30+ and TypeScript 3.2+). Note: VS Code settings override `tsconfig` or `jsconfig` configurations.
 
 ### Tags
-This extension adds html IntelliSense to any template literal [tagged](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) with `html` or `raw`:
+
+By default, this extension provides HTML IntelliSense for template literals [tagged](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) with `html` or `raw`:
 
 ```js
-import {html} from 'lit-html'
+import { html } from "lit-html";
 
-const a = html`
-    <div></div>
-`
+const a = html` <div></div> `;
 ```
 
-You can enable IntelliSense for other tag names by settings `"lit-html.tags"`:
+You can enable IntelliSense for other tag names by setting `"lit-html.tags"`:
 
 ```json
 "lit-html.tags": [
@@ -46,6 +43,7 @@ You can enable IntelliSense for other tag names by settings `"lit-html.tags"`:
 ```
 
 ### Formatting
+
 The plugin formats html code by default. You can disable this by setting `"lit-html.format.enabled": false`:
 
 ```json
