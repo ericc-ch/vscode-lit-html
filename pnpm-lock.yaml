@@ -25,8 +25,8 @@ importers:
         specifier: ^6.2.3
         version: 6.2.3
       typescript:
-        specifier: ^3.9.10
-        version: 3.9.10
+        specifier: ^5.8.3
+        version: 5.8.3
       vscode-test:
         specifier: ^1.6.1
         version: 1.6.1
@@ -729,9 +729,9 @@ packages:
   typescript-template-language-service-decorator@2.3.2:
     resolution: {integrity: sha512-hN0zNkr5luPCeXTlXKxsfBPlkAzx86ZRM1vPdL7DbEqqWoeXSxplACy98NpKpLmXsdq7iePUzAXloCAoPKBV6A==}
 
-  typescript@3.9.10:
-    resolution: {integrity: sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==}
-    engines: {node: '>=4.2.0'}
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+    engines: {node: '>=14.17'}
     hasBin: true
 
   unbox-primitive@1.1.0:
@@ -1685,7 +1685,7 @@ snapshots:
 
   typescript-template-language-service-decorator@2.3.2: {}
 
-  typescript@3.9.10: {}
+  typescript@5.8.3: {}
 
   unbox-primitive@1.1.0:
     dependencies:

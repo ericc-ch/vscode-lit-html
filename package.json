@@ -4,7 +4,7 @@
   "displayName": "lit-html",
   "description": "Syntax highlighting and IntelliSense for html inside of JavaScript and TypeScript tagged template strings",
   "version": "1.11.1",
-  "publisher": "bierner",
+  "publisher": "ericc-ch",
   "icon": "docs/logo.png",
   "license": "MIT",
   "galleryBanner": {
@@ -12,10 +12,10 @@
     "theme": "light"
   },
   "repository": {
-    "url": "https://github.com/mjbvz/vscode-lit-html.git"
+    "url": "https://github.com/ericc-ch/vscode-lit-html.git"
   },
   "bugs": {
-    "url": "https://github.com/mjbvz/vscode-lit-html/issues"
+    "url": "https://github.com/ericc-ch/vscode-lit-html/issues"
   },
   "categories": [
     "Programming Languages"
@@ -158,7 +158,7 @@
     "@types/vscode": "^1.100.0",
     "glob": "^7.2.3",
     "mocha": "^6.2.3",
-    "typescript": "^3.9.10",
+    "typescript": "^5.8.3",
     "vscode-test": "^1.6.1"
   },
   "packageManager": "pnpm@10.10.0"
