@@ -1,22 +1,9 @@
 {
   "name": "lit-html",
-  "private": true,
   "displayName": "lit-html",
-  "description": "Syntax highlighting and IntelliSense for html inside of JavaScript and TypeScript tagged template strings",
   "version": "1.11.2",
-  "publisher": "ericc-ch",
-  "icon": "docs/logo.png",
-  "license": "MIT",
-  "galleryBanner": {
-    "color": "#fcfcfc",
-    "theme": "light"
-  },
-  "repository": {
-    "url": "https://github.com/ericc-ch/vscode-lit-html.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ericc-ch/vscode-lit-html/issues"
-  },
+  "private": true,
+  "description": "Syntax highlighting and IntelliSense for html inside of JavaScript and TypeScript tagged template strings",
   "categories": [
     "Programming Languages"
   ],
@@ -27,16 +14,21 @@
     "html",
     "template"
   ],
-  "engines": {
-    "vscode": "^1.80.0"
+  "bugs": {
+    "url": "https://github.com/ericc-ch/vscode-lit-html/issues"
   },
-  "activationEvents": [
-    "onLanguage:javascript",
-    "onLanguage:javascriptreact",
-    "onLanguage:typescript",
-    "onLanguage:typescriptreact"
-  ],
+  "repository": {
+    "url": "https://github.com/ericc-ch/vscode-lit-html.git"
+  },
+  "license": "MIT",
+  "publisher": "ericc-ch",
   "main": "./out/index.js",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "test": "node ./out/test",
+    "vscode:prepublish": "tsc -p ./",
+    "watch": "tsc -w -p ./"
+  },
   "contributes": {
     "configuration": [
       {
@@ -53,6 +45,17 @@
             "default": [
               "html",
               "raw"
+            ]
+          },
+          "lit-html.cssTags": {
+            "type": "array",
+            "description": "List of template tags to enable css intellisense in.",
+            "items": {
+              "type": "string",
+              "description": "Tag name."
+            },
+            "default": [
+              "css"
             ]
           },
           "lit-html.format.enabled": {
@@ -142,12 +145,6 @@
         }
       }
     ],
-    "typescriptServerPlugins": [
-      {
-        "name": "typescript-lit-html-plugin",
-        "enableForWorkspaceTypeScriptVersions": true
-      }
-    ],
     "jsonValidation": [
       {
         "fileMatch": "jsconfig*.json",
@@ -157,15 +154,26 @@
         "fileMatch": "tsconfig*.json",
         "url": "./schemas/tsconfig.schema.json"
       }
+    ],
+    "typescriptServerPlugins": [
+      {
+        "name": "typescript-lit-html-plugin",
+        "enableForWorkspaceTypeScriptVersions": true
+      },
+      {
+        "name": "@styled/typescript-styled-plugin",
+        "enableForWorkspaceTypeScriptVersions": true
+      }
     ]
   },
-  "scripts": {
-    "vscode:prepublish": "tsc -p ./",
-    "compile": "tsc -p ./",
-    "watch": "tsc -w -p ./",
-    "test": "node ./out/test"
-  },
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact"
+  ],
   "dependencies": {
+    "@styled/typescript-styled-plugin": "^1.0.1",
     "typescript-lit-html-plugin": "0.9.0"
   },
   "devDependencies": {
@@ -175,5 +183,13 @@
     "mocha": "^6.2.3",
     "typescript": "^5.8.3",
     "vscode-test": "^1.6.1"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "icon": "docs/logo.png",
+  "galleryBanner": {
+    "color": "#fcfcfc",
+    "theme": "light"
   }
 }

@@ -2,10 +2,12 @@ import * as vscode from 'vscode';
 
 const typeScriptExtensionId = 'vscode.typescript-language-features';
 const pluginId = 'typescript-lit-html-plugin';
+const styledPluginId = '@styled/typescript-styled-plugin';
 const configurationSection = 'lit-html';
 
 interface SynchronizedConfiguration {
     tags?: ReadonlyArray<string>;
+    cssTags?: ReadonlyArray<string>;
     format: {
         enabled?: boolean;
     }
@@ -36,7 +38,16 @@ export async function activate(context: vscode.ExtensionContext) {
 }
 
 function synchronizeConfiguration(api: any) {
-    api.configurePlugin(pluginId, getConfiguration());
+    const config = getConfiguration();
+    api.configurePlugin(pluginId, {
+        tags: config.tags,
+        format: config.format,
+    });
+    api.configurePlugin(styledPluginId, {
+        tags: config.cssTags,
+        // We don't currently configure linting/validation for the styled plugin,
+        // but could add properties here if needed in the future.
+    });
 }
 
 function getConfiguration(): SynchronizedConfiguration {
@@ -46,6 +57,7 @@ function getConfiguration(): SynchronizedConfiguration {
     };
 
     withConfigValue<string[]>(config, 'tags', tags => { outConfig.tags = tags; });
+    withConfigValue<string[]>(config, 'cssTags', cssTags => { outConfig.cssTags = cssTags; });
     withConfigValue<boolean>(config, 'format.enabled', enabled => { outConfig.format.enabled = enabled; });
 
     return outConfig;
