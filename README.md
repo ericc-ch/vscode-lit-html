@@ -76,3 +76,24 @@ The plugin formats html code by default. You can disable this by setting `"lit-h
 ```json
 "lit-html.format.enabled": false
 ```
+
+## Publishing to Open VSX
+
+This project uses a GitHub Actions workflow to automatically publish to the [Open VSX Registry](https://open-vsx.org/) when a new tag starting with `v` (e.g., `v1.0.0`) is pushed to the repository.
+
+To enable publishing, you need to:
+
+1.  **Generate an Open VSX Personal Access Token:**
+    *   Go to your Open VSX [Access Tokens page](https://open-vsx.org/user/settings/tokens).
+    *   Click on "Create Token".
+    *   Give your token a descriptive name (e.g., `my-extension-publish`).
+    *   **Important:** Copy the generated token immediately. You will not be able to see it again.
+
+2.  **Add the Token as a GitHub Secret:**
+    *   In your GitHub repository, go to "Settings" > "Secrets and variables" > "Actions".
+    *   Click on "New repository secret".
+    *   Name the secret `OPEN_VSX_TOKEN`.
+    *   Paste the Open VSX personal access token you copied into the "Value" field.
+    *   Click "Add secret".
+
+Once the `OPEN_VSX_TOKEN` secret is configured, the workflow will automatically publish new tagged versions.
