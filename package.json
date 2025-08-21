@@ -7,10 +7,6 @@
   "categories": [
     "Programming Languages"
   ],
-  "author": {
-    "name": "Erick Christian",
-    "email": "erickchristian48@gmail.com"
-  },
   "keywords": [
     "lit-html",
     "javascript",
@@ -22,16 +18,22 @@
     "url": "https://github.com/ericc-ch/vscode-lit-html/issues"
   },
   "repository": {
-    "url": "https://github.com/ericc-ch/vscode-lit-html.git"
+    "url": "https://github.com/ericc-ch/vscode-lit-html.git",
+    "type": "git"
   },
   "license": "MIT",
+  "author": {
+    "name": "Erick Christian",
+    "email": "erickchristian48@gmail.com"
+  },
   "publisher": "ericc-ch",
+  "type": "module",
   "main": "./out/index.js",
   "scripts": {
-    "compile": "tsc -p ./",
-    "test": "node ./out/test",
-    "vscode:prepublish": "tsc -p ./",
-    "watch": "tsc -w -p ./"
+    "compile": "rollup -c",
+    "test": "vscode-test",
+    "vscode:prepublish": "rollup -c",
+    "watch": "rollup -c -w"
   },
   "contributes": {
     "configuration": [
@@ -149,16 +151,6 @@
         }
       }
     ],
-    "jsonValidation": [
-      {
-        "fileMatch": "jsconfig*.json",
-        "url": "./schemas/tsconfig.schema.json"
-      },
-      {
-        "fileMatch": "tsconfig*.json",
-        "url": "./schemas/tsconfig.schema.json"
-      }
-    ],
     "typescriptServerPlugins": [
       {
         "name": "typescript-lit-html-plugin",
@@ -181,12 +173,17 @@
     "typescript-lit-html-plugin": "0.9.0"
   },
   "devDependencies": {
+    "@echristian/eslint-config": "^0.0.53",
+    "@rollup/plugin-typescript": "^12.1.4",
     "@types/node": "^22.17.2",
     "@types/vscode": "^1.103.0",
-    "glob": "^11.0.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.33.0",
     "mocha": "^11.7.1",
-    "typescript": "^5.9.2",
-    "vscode-test": "^1.6.1"
+    "rollup": "^4.47.1",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.2"
   },
   "engines": {
     "vscode": "^1.103.0"
