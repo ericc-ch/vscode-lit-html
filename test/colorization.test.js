@@ -1,72 +1,79 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-// @ts-check
-'use strict';
+
 
 const assert = require('assert');
 const { commands, Uri } = require('vscode');
-const { join, basename, normalize, dirname } = require('path');
+const { join, basename, dirname } = require('path');
 const fs = require('fs');
 
-function assertUnchangedTokens(testFixurePath, done) {
-    let fileName = basename(testFixurePath);
+/**
+ * Asserts that syntax tokens for a test fixture remain unchanged from baseline
+ * @param {string} testFixturePath - Path to the test fixture file
+ * @param {(error?: any) => void} done - Mocha callback function
+ */
+function assertUnchangedTokens(testFixturePath, done) {
+    const fileName = basename(testFixturePath);
 
-    return commands.executeCommand('_workbench.captureSyntaxTokens', Uri.file(testFixurePath)).then(data => {
+    commands.executeCommand('_workbench.captureSyntaxTokens', Uri.file(testFixturePath)).then(data => {
         try {
-            let resultsFolderPath = join(dirname(dirname(testFixurePath)), 'colorize-results');
+            const resultsFolderPath = join(dirname(dirname(testFixturePath)), 'colorize-results');
             if (!fs.existsSync(resultsFolderPath)) {
                 fs.mkdirSync(resultsFolderPath);
             }
-            let resultPath = join(resultsFolderPath, fileName.replace('.', '_') + '.json');
+
+            const resultPath = join(resultsFolderPath, fileName.replace('.', '_') + '.json');
             if (fs.existsSync(resultPath)) {
-                let previousData = JSON.parse(fs.readFileSync(resultPath).toString());
+                const previousData = JSON.parse(fs.readFileSync(resultPath).toString());
                 try {
                     assert.deepEqual(data, previousData);
-                } catch (e) {
+                } catch (error) {
                     fs.writeFileSync(resultPath, JSON.stringify(data, null, '\t'), { flag: 'w' });
                     if (Array.isArray(data) && Array.isArray(previousData) && data.length === previousData.length) {
                         for (let i = 0; i < data.length; i++) {
-                            let d = data[i];
-                            let p = previousData[i];
-                            if (d.c !== p.c || hasThemeChange(d.r, p.r)) {
-                                throw e;
+                            const currentToken = data[i];
+                            const previousToken = previousData[i];
+                            if (currentToken.c !== previousToken.c || hasThemeChange(currentToken.r, previousToken.r)) {
+                                throw error;
                             }
                         }
-                        // different but no tokenization ot color change: no failure
+                        // Different but no tokenization or color change: no failure
                     } else {
-                        throw e;
+                        throw error;
                     }
                 }
             } else {
                 fs.writeFileSync(resultPath, JSON.stringify(data, null, '\t'));
             }
             done();
-        } catch (e) {
-            done(e);
+        } catch (error) {
+            done(error);
         }
-    }, done);
+    }, (error) => done(error));
 }
 
-function hasThemeChange(d, p) {
-    let keys = Object.keys(d);
-    for (let key of keys) {
-        if (d[key] !== p[key]) {
+/**
+ * Checks if there are theme-related color changes between two token render objects
+ * @param {Record<string, any>} current - Current token render object
+ * @param {Record<string, any>} previous - Previous token render object
+ * @returns {boolean} True if theme changes detected, false otherwise
+ */
+function hasThemeChange(current, previous) {
+    const keys = Object.keys(current);
+    for (const key of keys) {
+        if (current[key] !== previous[key]) {
             return true;
         }
     }
     return false;
-};
+}
 
 suite('colorization', () => {
-    let extensionColorizeFixturePath = join(__dirname, 'colorize-fixtures');
+    const extensionColorizeFixturePath = join(__dirname, 'colorize-fixtures');
     if (fs.existsSync(extensionColorizeFixturePath)) {
-        let fixturesFiles = fs.readdirSync(extensionColorizeFixturePath);
-        fixturesFiles.forEach(fixturesFile => {
-            // define a test for each fixture
-            test(fixturesFile, function (done) {
-                assertUnchangedTokens(join(extensionColorizeFixturePath, fixturesFile), done);
+        const fixtureFiles = fs.readdirSync(extensionColorizeFixturePath);
+        fixtureFiles.forEach(fixtureFile => {
+            // Define a test for each fixture
+            test(fixtureFile, function (done) {
+                assertUnchangedTokens(join(extensionColorizeFixturePath, fixtureFile), done);
             });
         });
     }
