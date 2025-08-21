@@ -5,6 +5,9 @@
 .vscode-test/
 test/
 out/test/**
+src/
+rollup.config.js
+bun.lock
 
 **/*.map
 **/*.ts

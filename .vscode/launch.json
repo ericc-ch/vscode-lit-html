@@ -1,6 +1,6 @@
 // A launch configuration that launches the extension inside a new window
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "configurations": [
     {
       "name": "Launch Extension",
@@ -9,6 +9,14 @@
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
       "outFiles": ["${workspaceFolder}/out/**/*.js"]
+    },
+    {
+      "name": "Extension Tests",
+      "type": "extensionHost",
+      "request": "launch",
+      "testConfiguration": "${workspaceFolder}/.vscode-test.mjs",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "outFiles": ["${workspaceFolder}/out/test/**/*.js"]
     }
   ]
 }
