@@ -7,25 +7,27 @@
 - **GitHub Actions**: CI/CD workflows use Bun via `oven-sh/setup-bun@v2`
 
 ## Build/Test Commands
-- **Build**: `bun run compile` or `tsc -p ./` (outputs to `./out`)
-- **Test**: `bun test` or `bun run test` (runs all colorization tests using modern @vscode/test-cli)
-- **Watch**: `bun run watch` (TypeScript watch mode)
-- **Single test**: No specific command - tests run fixture files in `test/colorize-fixtures/`
+- **Build**: `bun run compile` (uses Rollup to compile TypeScript to `./out`)
+- **Test**: `bun test` (runs colorization tests using @vscode/test-cli with Mocha)
+- **Watch**: `bun run watch` (Rollup watch mode for development)
+- **Lint**: `bun run lint` (uses ESLint with @echristian/eslint-config)
+- **Single test**: Run specific fixture via `bun test --grep "fixture-name"`
 - **Install dependencies**: `bun install`
 - **Add dependency**: `bun add <package>`
 - **Add dev dependency**: `bun add -D <package>`
 
 ## Code Style
 - **Language**: TypeScript with strict mode enabled
-- **Target**: ES2020, CommonJS modules
-- **Imports**: Use `import * as name` for namespaces, explicit imports for specific items
-- **Formatting**: 4-space indentation, semicolons required
-- **Types**: Explicit interfaces for complex objects, use readonly arrays for config
-- **Naming**: camelCase variables/functions, PascalCase interfaces, lowercase constants
-- **Error handling**: Early returns, explicit undefined checks
-- **VSCode patterns**: Use `vscode.workspace.getConfiguration()`, subscribe to events properly
+- **Target**: ESNext modules with bundler resolution
+- **Imports**: ES6 imports, namespace imports for VSCode APIs
+- **Formatting**: Follows @echristian/eslint-config rules
+- **Types**: Strict TypeScript with noUnusedLocals, noUnusedParameters, verbatimModuleSyntax
+- **Naming**: camelCase variables/functions, PascalCase interfaces, UPPER_CASE constants
+- **Error handling**: Early returns, explicit undefined/null checks
+- **VSCode patterns**: Use vscode.workspace.getConfiguration(), proper event subscriptions
 
 ## Project Structure
-- Source: `src/` (TypeScript) → compiled to `out/`
-- Tests: `test/` directory with Mocha test files
-- This is a VSCode extension that provides lit-html syntax highlighting
+- Source: `src/` (TypeScript) → compiled to `out/` via Rollup
+- Tests: `test/` with Mocha TDD UI, fixtures in `test/colorize-fixtures/`
+- Syntax: TextMate grammars in `syntaxes/` for lit-html highlighting
+- This is a VSCode extension that provides lit-html syntax highlighting and IntelliSense
