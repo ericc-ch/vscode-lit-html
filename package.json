@@ -28,9 +28,10 @@
   },
   "publisher": "ericc-ch",
   "type": "module",
-  "main": "./out/index.js",
+  "main": "./out/index.cjs",
   "scripts": {
     "compile": "rollup -c",
+    "lint": "eslint .",
     "test": "vscode-test",
     "vscode:prepublish": "rollup -c",
     "watch": "rollup -c -w"

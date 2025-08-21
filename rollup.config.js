@@ -4,7 +4,7 @@ import { defineConfig } from "rollup"
 export default defineConfig({
   input: "./src/index.ts",
   output: {
-    dir: "out",
+    file: "out/index.cjs",
     format: "cjs",
     sourcemap: true,
   },
