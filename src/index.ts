@@ -5,6 +5,21 @@ const pluginId = "typescript-lit-html-plugin"
 const styledPluginId = "@styled/typescript-styled-plugin"
 const configurationSection = "lit-html"
 
+// TypeScript Extension API Type Definitions
+interface TypeScriptApi {
+  readonly onCompletionAccepted: vscode.Event<
+    vscode.CompletionItem & { metadata?: unknown }
+  >
+  configurePlugin(
+    pluginId: string,
+    configuration: Record<string, unknown>,
+  ): void
+}
+
+interface TypeScriptExtensionExports {
+  getAPI(version: 0): TypeScriptApi | undefined
+}
+
 interface SynchronizedConfiguration {
   tags?: ReadonlyArray<string>
   cssTags?: ReadonlyArray<string>
@@ -14,15 +29,15 @@ interface SynchronizedConfiguration {
 }
 
 export async function activate(context: vscode.ExtensionContext) {
-  const extension = vscode.extensions.getExtension(typeScriptExtensionId)
+  const extension = vscode.extensions.getExtension<TypeScriptExtensionExports>(
+    typeScriptExtensionId,
+  )
   if (!extension) {
     return
   }
 
   await extension.activate()
-  if (!extension.exports || !extension.exports.getAPI) {
-    return
-  }
+
   const api = extension.exports.getAPI(0)
   if (!api) {
     return
@@ -41,7 +56,7 @@ export async function activate(context: vscode.ExtensionContext) {
   synchronizeConfiguration(api)
 }
 
-function synchronizeConfiguration(api: any) {
+function synchronizeConfiguration(api: TypeScriptApi) {
   const config = getConfiguration()
   api.configurePlugin(pluginId, {
     tags: config.tags,
@@ -60,23 +75,23 @@ function getConfiguration(): SynchronizedConfiguration {
     format: {},
   }
 
-  withConfigValue<Array<string>>(config, "tags", (tags) => {
-    outConfig.tags = tags
+  withConfigValue(config, "tags", (tags) => {
+    outConfig.tags = tags as ReadonlyArray<string>
   })
-  withConfigValue<Array<string>>(config, "cssTags", (cssTags) => {
-    outConfig.cssTags = cssTags
+  withConfigValue(config, "cssTags", (cssTags) => {
+    outConfig.cssTags = cssTags as ReadonlyArray<string>
   })
-  withConfigValue<boolean>(config, "format.enabled", (enabled) => {
-    outConfig.format.enabled = enabled
+  withConfigValue(config, "format.enabled", (enabled) => {
+    outConfig.format.enabled = enabled as boolean
   })
 
   return outConfig
 }
 
-function withConfigValue<T>(
+function withConfigValue(
   config: vscode.WorkspaceConfiguration,
   key: string,
-  withValue: (value: T) => void,
+  withValue: (value: unknown) => void,
 ): void {
   const configSetting = config.inspect(key)
   if (!configSetting) {
@@ -93,8 +108,11 @@ function withConfigValue<T>(
     return
   }
 
-  const value = config.get<T | undefined>(key, undefined)
-  if (typeof value !== "undefined") {
-    withValue(value)
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+  const value = config.get(key, undefined)
+  if (typeof value === "undefined") {
+    return
   }
+
+  withValue(value)
 }
