@@ -7,6 +7,10 @@
   "categories": [
     "Programming Languages"
   ],
+  "author": {
+    "name": "Erick Christian",
+    "email": "erickchristian48@gmail.com"
+  },
   "keywords": [
     "lit-html",
     "javascript",
